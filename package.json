@@ -1,0 +1,26 @@
+{
+  "name": "cross-aria2",
+  "version": "0.0.1",
+  "description": "Cross-platform wrapper of aria2",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gucheen/cross-aria2.git"
+  },
+  "keywords": [
+    "aria2",
+    "cross-platform"
+  ],
+  "author": "guchengf@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gucheen/cross-aria2/issues"
+  },
+  "homepage": "https://github.com/gucheen/cross-aria2#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.0"
+  }
+}
