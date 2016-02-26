@@ -1,3 +1,3 @@
 [submodule "public"]
 	path = public
-	url = https://github.com/ziahamza/webui-aria2.git
+	url = git@github.com:gucheen/webui-aria2.git
