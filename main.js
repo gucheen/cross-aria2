@@ -6,6 +6,8 @@ const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
+const path = require('path');
+
 function run_cmd(cmd, args, callBack) {
   var spawn = require('child_process').spawn;
   var child = spawn(cmd, args);
@@ -24,7 +26,7 @@ function run_cmd(cmd, args, callBack) {
 let mainWindow;
 
 function createWindow() {
-  run_cmd('./aria2c', ['--enable-rpc', '--rpc-listen-all'], function (text) {
+  run_cmd(path.resolve(__dirname + '/aria2c'), ['--enable-rpc', '--rpc-listen-all'], function (text) {
     console.log('run aria2c', text);
   });
 
@@ -35,7 +37,7 @@ function createWindow() {
   mainWindow.loadURL('file://' + __dirname + '/public/index.html');
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
