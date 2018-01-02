@@ -5,8 +5,9 @@
   "main": "main.js",
   "scripts": {
     "start": "electron main.js",
-    "build": "electron-packager . cross-aria2 --platform=all --arch=x64 --version=0.36.0",
-    "clean": "rm -fr cross-aria2-*"
+    "build": "npm run clean && electron-packager . cross-aria2 --platform=darwin --arch=x64",
+    "clean": "rm -fr cross-aria2-*",
+    "update-aria2:osx": "cp -f /usr/local/bin/aria2c ."
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,7 @@
   },
   "homepage": "https://github.com/gucheen/cross-aria2#readme",
   "devDependencies": {
-    "electron-packager": "^5.2.1",
-    "electron-prebuilt": "^0.36.0"
+    "electron": "1.7.10",
+    "electron-packager": "^10.1.0"
   }
 }

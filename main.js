@@ -8,10 +8,10 @@ const BrowserWindow = electron.BrowserWindow;
 
 const path = require('path');
 
-function run_cmd(cmd, args, callBack) {
-  var spawn = require('child_process').spawn;
-  var child = spawn(cmd, args);
-  var resp = '';
+function runCMD(cmd, args, callBack) {
+  const spawn = require('child_process').spawn;
+  const child = spawn(cmd, args);
+  let resp = '';
 
   child.stdout.on('data', function (buffer) {
     resp += buffer.toString()
@@ -26,22 +26,37 @@ function run_cmd(cmd, args, callBack) {
 let mainWindow;
 
 function createWindow() {
-  run_cmd(path.resolve(__dirname + '/aria2c'), ['--enable-rpc', '--rpc-listen-all'], function (text) {
-    console.log('run aria2c', text);
-  });
+  const homePath = app.getPath('home');
+  const downloadsPath = app.getPath('downloads');
+  runCMD(path.resolve(__dirname, 'aria2/aria2c'),
+    [
+      `--conf-path=${path.resolve(__dirname, 'aria2.conf')}`,
+      `--dir=${downloadsPath}`,
+      `--input-file=${homePath}/.aria2/aria2.session`,
+      `--save-session=${homePath}/.aria2/aria2.session`,
+    ],
+    (text) => {
+      console.log('run aria2c', text);
+    });
 
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1000, height: 600});
+  mainWindow = new BrowserWindow({
+    width: 1000,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: false,
+    },
+  });
 
   // and load the index.html of the app.
-  mainWindow.loadURL('file://' + __dirname + '/public/index.html');
+  mainWindow.loadURL('file://' + __dirname + '/public/dist/index.html');
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
-    run_cmd('killall', ['aria2c'], function (text) {
+    runCMD('killall', ['aria2c'], function (text) {
       console.log('kill all aria2c');
     });
     // Dereference the window object, usually you would store windows
