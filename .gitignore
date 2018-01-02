@@ -97,3 +97,4 @@ Temporary Items
 cross-aria2-*
 aria2.session
 src/public
+src/package.json
