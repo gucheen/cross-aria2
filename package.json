@@ -9,7 +9,7 @@
     "build:app": "electron-packager ./src cross-aria2 --platform=darwin --arch=x64",
     "prebuild": "cp package.json src/package.json",
     "build": "npm run clean && npm run build:web && npm run build:app",
-    "clean": "rm -fr cross-aria2-* && rm -fr src/public && rm -fr src/package.json",
+    "clean": "rm -fr cross-aria2-* && rm -fr src/public",
     "update-aria2:osx": "cp -f /usr/local/bin/aria2c ."
   },
   "repository": {
