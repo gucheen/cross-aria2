@@ -9,6 +9,7 @@ Cross-platform wrapper of aria2
 
 ## Built on:
 - [Electron](http://electron.atom.io/)
-- [webui-aria2](https://github.com/ziahamza/webui-aria2)
 - [aria2](https://aria2.github.io/)
+- [AriaNg](https://github.com/mayswind/AriaNg)
+- ~~[webui-aria2](https://github.com/ziahamza/webui-aria2)~~
 
