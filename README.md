@@ -1,7 +1,7 @@
 # cross-aria2
 Cross-platform wrapper of aria2
 
-[cross-aria2](screentshoots/cross-aria2.png)
+![cross-aria2](screentshoots/cross-aria2.png)
 
 ## Development:
 - `npm instaill && npm start`
