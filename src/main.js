@@ -9,12 +9,15 @@ const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 
 function runCMD(cmd, args, callBack) {
-  const spawn = require('child_process').spawn;
+  const spawn = require('cross-spawn');
   const child = spawn(cmd, args);
   let resp = '';
 
   child.stdout.on('data', function (buffer) {
     resp += buffer.toString()
+  });
+  child.stderr.on('data', (data) => {
+    console.log(`stderr: ${data}`);
   });
   child.stdout.on('end', function () {
     callBack(resp)
@@ -26,9 +29,10 @@ function runCMD(cmd, args, callBack) {
 let mainWindow;
 
 function createWindow() {
+  const aria2Bin = process.platform === 'win32' ? 'aria2/aria2c.exe' : 'aria2/aria2c'
   const homePath = app.getPath('home');
   const downloadsPath = app.getPath('downloads');
-  runCMD(path.resolve(__dirname, 'aria2/aria2c'),
+  runCMD(path.resolve(__dirname, aria2Bin),
     [
       `--conf-path=${path.resolve(__dirname, 'aria2.conf')}`,
       `--dir=${downloadsPath}`,
