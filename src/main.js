@@ -5,6 +5,7 @@ const electron = require('electron');
 const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
+const Tray = electron.Tray;
 
 const path = require('path');
 
@@ -51,6 +52,8 @@ function createWindow() {
       nodeIntegration: false,
     },
   });
+
+  const tray = new Tray(path.resolve(__dirname, 'icon/trayTemplate.png'));
 
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/public/index.html');

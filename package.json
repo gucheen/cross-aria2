@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron src/main.js",
     "build:web": "cd ariang && gulp clean build && cp -frp dist ../src/public",
-    "build:app": "electron-packager ./src cross-aria2 --platform=darwin --arch=x64",
+    "build:app": "electron-packager ./src cross-aria2 --platform=darwin --arch=x64 --overwrite --icon=./src/icon/icon",
     "prebuild": "cp package.json src/package.json",
     "build": "npm run clean && npm run build:web && npm run build:app",
     "clean": "rm -fr cross-aria2-* && rm -fr src/public",
