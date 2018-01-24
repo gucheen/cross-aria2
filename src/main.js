@@ -6,6 +6,7 @@ const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 const Tray = electron.Tray;
+const Menu = electron.Menu;
 
 const path = require('path');
 
@@ -30,7 +31,8 @@ function runCMD(cmd, args, callBack) {
 let mainWindow;
 
 function createWindow() {
-  const aria2Bin = process.platform === 'win32' ? 'aria2/aria2c.exe' : 'aria2/aria2c'
+  app.setName('Cross Aria2');
+  const aria2Bin = process.platform === 'win32' ? 'aria2/aria2c.exe' : 'aria2/aria2c';
   const homePath = app.getPath('home');
   const downloadsPath = app.getPath('downloads');
   runCMD(path.resolve(__dirname, aria2Bin),
@@ -57,9 +59,98 @@ function createWindow() {
 
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/public/index.html');
+  // mainWindow.loadURL('http://localhost:9000');
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
+
+  // Create the Application's main menu
+  const template = [
+    {
+      label: 'Edit',
+      submenu: [
+        {role: 'undo'},
+        {role: 'redo'},
+        {type: 'separator'},
+        {role: 'cut'},
+        {role: 'copy'},
+        {role: 'paste'},
+        {role: 'pasteandmatchstyle'},
+        {role: 'delete'},
+        {role: 'selectall'}
+      ]
+    },
+    {
+      label: 'View',
+      submenu: [
+        {role: 'reload'},
+        {role: 'forcereload'},
+        {role: 'toggledevtools'},
+        {type: 'separator'},
+        {role: 'resetzoom'},
+        {role: 'zoomin'},
+        {role: 'zoomout'},
+        {type: 'separator'},
+        {role: 'togglefullscreen'}
+      ]
+    },
+    {
+      role: 'window',
+      submenu: [
+        {role: 'minimize'},
+        {role: 'close'}
+      ]
+    },
+    {
+      role: 'help',
+      submenu: [
+        {
+          label: 'Learn More',
+          click () { require('electron').shell.openExternal('https://electron.atom.io') }
+        }
+      ]
+    }
+  ]
+  
+  if (process.platform === 'darwin') {
+    template.unshift({
+      label: app.getName(),
+      submenu: [
+        {role: 'about'},
+        {type: 'separator'},
+        {role: 'services', submenu: []},
+        {type: 'separator'},
+        {role: 'hide'},
+        {role: 'hideothers'},
+        {role: 'unhide'},
+        {type: 'separator'},
+        {role: 'quit'}
+      ]
+    })
+  
+    // Edit menu
+    template[1].submenu.push(
+      {type: 'separator'},
+      {
+        label: 'Speech',
+        submenu: [
+          {role: 'startspeaking'},
+          {role: 'stopspeaking'}
+        ]
+      }
+    )
+  
+    // Window menu
+    template[3].submenu = [
+      {role: 'close'},
+      {role: 'minimize'},
+      {role: 'zoom'},
+      {type: 'separator'},
+      {role: 'front'}
+    ]
+  }
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
