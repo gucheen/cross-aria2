@@ -50,9 +50,6 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 600,
-    webPreferences: {
-      nodeIntegration: false,
-    },
   });
 
   const tray = new Tray(path.resolve(__dirname, 'icon/trayTemplate.png'));
