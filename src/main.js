@@ -29,6 +29,7 @@ function runCMD(cmd, args, callBack) {
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+let tray;
 
 function createWindow() {
   app.setName('Cross Aria2');
@@ -52,7 +53,7 @@ function createWindow() {
     height: 600,
   });
 
-  const tray = new Tray(path.resolve(__dirname, 'icon/trayTemplate.png'));
+  tray = new Tray(path.resolve(__dirname, 'icon/trayTemplate.png'));
 
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/public/index.html');
@@ -108,7 +109,7 @@ function createWindow() {
       ]
     }
   ]
-  
+
   if (process.platform === 'darwin') {
     template.unshift({
       label: app.getName(),
@@ -124,7 +125,7 @@ function createWindow() {
         {role: 'quit'}
       ]
     })
-  
+
     // Edit menu
     template[1].submenu.push(
       {type: 'separator'},
@@ -136,7 +137,7 @@ function createWindow() {
         ]
       }
     )
-  
+
     // Window menu
     template[3].submenu = [
       {role: 'close'},
