@@ -27,8 +27,8 @@
   },
   "homepage": "https://github.com/gucheen/cross-aria2#readme",
   "devDependencies": {
-    "electron": "^2.0.0",
-    "electron-packager": "^12.0.2"
+    "electron": "^3.0.2",
+    "electron-packager": "^12.2.0"
   },
   "dependencies": {
     "cross-spawn": "^6.0.5"
